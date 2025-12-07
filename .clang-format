@@ -1,5 +1,5 @@
 BasedOnStyle: LLVM
-MaxEmptyLinesToKeep: 1
+MaxEmptyLinesToKeep: 2
 ColumnLimit: 120
 ExperimentalAutoDetectBinPacking: true
 
@@ -21,11 +21,11 @@ CompactNamespaces: true
 NamespaceIndentation: None
 FixNamespaceComments: true
 
-# Allow
-AllowShortLambdasOnASingleLine: Inline
+# Allow Short Lines
+AllowShortLambdasOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: InlineOnly
-AllowShortIfStatementsOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: false
 
 # Align
@@ -39,13 +39,14 @@ AlignEscapedNewlines: Left
 AlignConsecutiveAssignments: Consecutive
 
 # Break
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Allman
+
 BreakBeforeTernaryOperators: true
 AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: true
 
 # Insert
-InsertBraces: false
+InsertBraces: true
 InsertNewlineAtEOF: true
 
 # Remove
@@ -53,4 +54,4 @@ RemoveBracesLLVM: true
 KeepEmptyLines:
   AtStartOfFile: false
   AtStartOfBlock: false
-  AtEndOfFile: false
+  AtEndOfFile: true
