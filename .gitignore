@@ -39,3 +39,9 @@
 
 # debug information files
 *.dwo
+
+# unwanted dirs
+.cache/
+build/
+subprojects/*/
+.wraplock
