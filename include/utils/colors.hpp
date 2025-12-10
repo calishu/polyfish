@@ -63,7 +63,12 @@ struct RGB
     uint8_t green;
     uint8_t blue;
 
-    [[nodiscard]] auto to_ansi() const -> std::string { return std::format("\033[38;2;{};{};{}m", red, green, blue); }
+    [[nodiscard]] auto to_ansi() const -> std::string
+    {
+        char buf[32];
+        std::snprintf(buf, sizeof(buf), "\033[38;2;%u;%u;%um", red, green, blue);
+        return std::string(buf);
+    }
 };
 
 #define RGB_ANSI_GEN(name, red, green, blue)                           \
