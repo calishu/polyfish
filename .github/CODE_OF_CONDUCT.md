@@ -17,7 +17,7 @@ Examples include:
 - Any other behavior that could be considered inappropriate in a professional setting
 
 ## Responsibilities of the community
-Should anyone discover a violation of this code of conduct, they are obliged to report it to the project managers and community moderators by creating a issue in the `COC Report` category.
+Should anyone discover a violation of this code of conduct, they are obliged to report it to the project maintainers and community moderators by creating a issue in the `COC Report` category.
 
 ## Our Responsibilities
 Project maintainers and moderators are responsible for responding appropriately to inappropriate behavior.\
@@ -26,4 +26,4 @@ Community moderators have the right and the duty to edit, remove, or reject comm
 \
 Project maintainers have the same rights and responsibilities as community moderators. In addition, they may take action, with or without evidence or approval, and may amend this Code of Conduct at any time, except for additional rules specific to individual entities.\
 \
-Neither community moderators nor project maintainers managers can guarantee compliance with the Code of Conduct, but they will make every effort to ensure it.
+Neither community moderators nor project maintainers can guarantee compliance with the Code of Conduct, but they will make every effort to ensure it.
