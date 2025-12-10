@@ -1,6 +1,8 @@
+#ifndef COLORS_HPP
+#define COLORS_HPP
+
 #include <cstdint>
 #include <cstdlib>
-#include <format>
 #include <string>
 
 namespace colors::ansi
@@ -11,26 +13,25 @@ constexpr std::string_view reset = "\033[0m";
 namespace colors
 {
 
-static inline auto color_state(const bool state = true) -> bool
+inline auto color_state_storage() -> bool &
 {
-    static bool enabled = state;
+    static bool enabled = true;
     return enabled;
 }
 
 inline auto enable_colors() -> void
 {
-    color_state(true);
+    color_state_storage() = true;
 }
 inline auto disable_colors() -> void
 {
-    color_state(false);
+    color_state_storage() = false;
 }
 
 inline auto is_color_enabled() -> bool
 {
     if (std::getenv("NO_COLOR")) return false;
-    if (!color_state()) return false;
-    return true;
+    return color_state_storage();
 }
 
 #define ANSI_GEN(name, code)                                                               \
@@ -40,7 +41,7 @@ inline auto is_color_enabled() -> bool
     {                                                                                      \
     constexpr std::string_view name = code;                                                \
     }                                                                                      \
-    inline auto name(std::string_view text) -> std::string                                 \
+    [[nodiscard]] inline auto name(std::string_view text) -> std::string                   \
     {                                                                                      \
         if (!is_color_enabled()) return std::string(text);                                 \
         std::string out;                                                                   \
@@ -50,7 +51,7 @@ inline auto is_color_enabled() -> bool
         out += colors::ansi::reset;                                                        \
         return out;                                                                        \
     }                                                                                      \
-    inline auto name(std::ostream &os) -> std::ostream &                                   \
+    [[nodiscard]] inline auto name(std::ostream &os) -> std::ostream &                     \
     {                                                                                      \
         if (is_color_enabled()) os << colors::ansi::name;                                  \
         return os;                                                                         \
@@ -71,18 +72,18 @@ struct RGB
     }
 };
 
-#define RGB_ANSI_GEN(name, red, green, blue)                           \
-    namespace colors                                                   \
-    {                                                                  \
-    inline auto name(std::string_view text) -> std::string             \
-    {                                                                  \
-        return rgb_color(text, RGB{red, green, blue});                 \
-    }                                                                  \
-    inline auto name(std::ostream &os) -> std::ostream &               \
-    {                                                                  \
-        if (is_color_enabled()) os << RGB{red, green, blue}.to_ansi(); \
-        return os;                                                     \
-    }                                                                  \
+#define RGB_ANSI_GEN(name, red, green, blue)                             \
+    namespace colors                                                     \
+    {                                                                    \
+    [[nodiscard]] inline auto name(std::string_view text) -> std::string \
+    {                                                                    \
+        return rgb_color(text, RGB{red, green, blue});                   \
+    }                                                                    \
+    [[nodiscard]] inline auto name(std::ostream &os) -> std::ostream &   \
+    {                                                                    \
+        if (is_color_enabled()) os << RGB{red, green, blue}.to_ansi();   \
+        return os;                                                       \
+    }                                                                    \
     }
 
 inline auto rgb_color(std::string_view text, const RGB &color) -> std::string
@@ -159,3 +160,5 @@ ANSI_GEN(reset_blink, "\033[25m");
 ANSI_GEN(reset_reverse, "\033[27m");
 ANSI_GEN(reset_hidden, "\033[28m");
 ANSI_GEN(reset_strike, "\033[29m");
+
+#endif
